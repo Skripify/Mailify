@@ -11,7 +11,11 @@ export default async (client, interaction) => {
     if (!command) return;
 
     try {
-      await command.run({ client, interaction });
+      await command.run({
+        client,
+        interaction,
+        prefix: client.db.get(interaction.guild.id, "prefix"),
+      });
     } catch (err) {
       console.log(err);
       interaction.reply({

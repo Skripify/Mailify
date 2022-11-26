@@ -15,7 +15,7 @@
 /**
  * @typedef {Object} SlashCommand
  * @prop {import("discord.js").SlashCommandBuilder} data
- * @prop {(params: { client: import("../structures/BotClient.mjs").BotClient, interaction: import("discord.js").ChatInputCommandInteraction }) => Promise<any>} run
+ * @prop {(params: { client: import("../structures/BotClient.mjs").BotClient, interaction: import("discord.js").ChatInputCommandInteraction, prefix: string }) => Promise<any>} run
  * @prop {(params: { client: import("../structures/BotClient.mjs").BotClient, interaction: import("discord.js").ChatInputCommandInteraction }) => Promise<any>} autocomplete
  */
 
