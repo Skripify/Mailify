@@ -1,0 +1,32 @@
+{
+  "name": "mailify",
+  "version": "1.0.0",
+  "description": "Your local Discord mail bot.",
+  "type": "module",
+  "main": "src/index.mjs",
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Skripify/Mailify.git"
+  },
+  "author": "Skripify Labs (https://skripify.tk)",
+  "contributors": [
+    "Toastify (https://toastify.tk)"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Skripify/Mailify/issues"
+  },
+  "homepage": "https://github.com/Skripify/Mailify#readme",
+  "dependencies": {
+    "discord.js": "^14.6.0",
+    "dotenv": "^16.0.3",
+    "enmap": "^5.9.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
