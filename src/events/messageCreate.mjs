@@ -40,7 +40,7 @@ export default async (client, message) => {
     return message.reply({
       embeds: [
         new Embed().setDescription(
-          `My prefix in this server is **${prefix}**.`
+          `My prefix in this server is \`${prefix}\`.\nRun \`${prefix}help\` to view all my commands.`
         ),
       ],
     });
