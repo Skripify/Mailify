@@ -95,7 +95,9 @@ export default (client) => {
       /** @type {import('discord.js').Guild[]} */
       const mutualGuilds = [];
 
-      for (const guild of [...client.guilds.cache.values()]) {
+      for (const guild of [...client.guilds.cache.values()].filter(
+        (g) => client.db.has(g.id) && client.db.get(g.id, "enabled")
+      )) {
         try {
           await guild.members.fetch(dmauthor.id);
           mutualGuilds.push(guild.id);
@@ -115,8 +117,8 @@ export default (client) => {
         const selectedId = message.content;
         const guild = client.guilds.cache.get(selectedId);
         if (guild) {
-          createTicket(message, guild, dmauthor);
-        } else if (!isNaN(selectedId) || !guild)
+          return createTicket(message, guild, dmauthor);
+        } else if (!isNaN(selectedId) && !guild)
           return message.reply({
             embeds: [new FailEmbed().setDescription("Invalid server ID.")],
           });
@@ -134,7 +136,7 @@ export default (client) => {
                 mutualGuilds
                   .map((id) =>
                     client.guilds.cache.get(id)
-                      ? `**${client.guilds.cache.get(id).name} (\`${id}\`)`
+                      ? `**${client.guilds.cache.get(id).name}** (\`${id}\`)`
                       : `\`${id}\``
                   )
                   .join("\n")
