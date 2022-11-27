@@ -18,6 +18,7 @@ const client = new BotClient({
       },
     ],
   },
+  shards: "auto",
 });
 
 client.init();
