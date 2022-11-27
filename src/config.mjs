@@ -4,4 +4,8 @@ export const colors = {
   fail: "#ff0000",
 };
 
+export const emotes = {
+  logo: "<:mailify:1046224216258789396>",
+};
+
 export const guildId = "977485367294959627";
