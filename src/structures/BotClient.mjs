@@ -1,4 +1,4 @@
-import { Client, Collection, GatewayIntentBits } from "discord.js";
+import { Client, Collection, GatewayIntentBits, Partials } from "discord.js";
 import fs from "fs";
 import Enmap from "enmap";
 import { importFile } from "../utils/functions.mjs";
@@ -22,15 +22,17 @@ export class BotClient extends Client {
     prefix: process.env.PREFIX,
   };
 
-  /** @param {Omit<import("discord.js").ClientOptions, "intents">} options */
+  /** @param {import('discord.js').ClientOptions} options */
   constructor(options = {}) {
     super({
       intents: [
         GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.DirectMessages,
         GatewayIntentBits.MessageContent,
       ],
+      partials: [Partials.Channel],
       ...options,
     });
   }
@@ -40,6 +42,7 @@ export class BotClient extends Client {
     await this.registerMessageCommands();
     await this.registerSlashCommands();
     await this.registerEvents();
+    await this.registerFeatures();
     this.login(process.env.TOKEN);
   }
 
@@ -101,6 +104,16 @@ export class BotClient extends Client {
       const event = await importFile(`../events/${file}`);
       const eventName = file.split(".")[0];
       this.on(eventName, event.bind(null, this));
+    }
+  }
+
+  async registerFeatures() {
+    const files = fs
+      .readdirSync("./src/features")
+      .filter((file) => file.endsWith("js"));
+    for (const file of files) {
+      const feature = await importFile(`../features/${file}`);
+      feature(this);
     }
   }
 }

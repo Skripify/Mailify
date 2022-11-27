@@ -21,3 +21,5 @@
  */
 
 /** @typedef {{ message: import("discord.js").Collection<string, MessageCommand>, slash: import("discord.js").Collection<string, SlashCommand> }} Commands */
+
+/** @typedef {(client: import("../structures/BotClient.mjs").BotClient) => Promise<any>} Feature */

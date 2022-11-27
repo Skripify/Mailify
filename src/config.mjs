@@ -7,6 +7,8 @@ export const colors = {
 export const emotes = {
   previous: "<:previous:994438542077984768>",
   next: "<:next:994438540429643806>",
+  success: "<:classic_check:1046366360604786688>",
+  fail: "<:classic_x:1046366420457500742>",
   logo: "<:mailify:1046224216258789396>",
 };
 
