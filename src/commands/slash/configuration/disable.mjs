@@ -1,11 +1,11 @@
 import { PermissionFlagsBits, SlashCommandBuilder } from "discord.js";
-import { FailEmbed } from "../../../structures/Embed.mjs";
+import { FailEmbed, SuccessEmbed } from "../../../structures/Embed.mjs";
 
 /** @type {import("../../../utils/types.mjs").SlashCommand} */
 export default {
   data: new SlashCommandBuilder()
-    .setName("forceclose")
-    .setDescription("Forcibly closes the ticket.")
+    .setName("disable")
+    .setDescription("Disables the ModMail system.")
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
   run: async ({ client, interaction }) => {
     client.db.ensure(interaction.guild.id, {
@@ -24,23 +24,16 @@ export default {
         ephemeral: true,
       });
 
-    if (
-      client.db.get(interaction.guild.id, "category") !==
-      interaction.channel.parentId
-    )
-      return interaction.reply({
-        embeds: [
-          new FailEmbed().setDescription("This channel isn't a ticket."),
-        ],
-        ephemeral: true,
-      });
+    client.db.set(interaction.guild.id, false, "enabled");
+    client.db.set(interaction.guild.id, null, "category");
 
-    const authorId = client.db.findKey(
-      (d) =>
-        d.guild === interaction.guild.id && d.ticket === interaction.channel.id
-    );
-    if (authorId) client.db.delete(authorId);
-
-    interaction.channel.delete();
+    interaction.reply({
+      embeds: [
+        new SuccessEmbed().setDescription(
+          "Successfully disabled the ModMail system!"
+        ),
+      ],
+      ephemeral: true,
+    });
   },
 };

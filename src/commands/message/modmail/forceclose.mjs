@@ -6,6 +6,21 @@ export default {
   description: "Forcibly closes the ticket.",
   userPermissions: ["ManageGuild"],
   run: async ({ client, message }) => {
+    client.db.ensure(message.guild.id, {
+      enabled: false,
+      category: null,
+      message: "What do you need help with?",
+    });
+
+    if (client.db.get(message.guild.id, "enabled") === false)
+      return message.reply({
+        embeds: [
+          new FailEmbed().setDescription(
+            "This server hasn't enabled the ModMail system yet."
+          ),
+        ],
+      });
+
     if (
       client.db.get(message.guild.id, "category") !== message.channel.parentId
     )
