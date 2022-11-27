@@ -1,3 +1,4 @@
+import { ChannelType } from "discord.js";
 import { Embed, FailEmbed } from "../structures/Embed.mjs";
 
 /** @param {string} str */
@@ -10,7 +11,12 @@ function escapeRegex(str) {
  * @param {import("discord.js").Message} message
  */
 export default async (client, message) => {
-  if (!message.guild || message.author.bot) return;
+  if (
+    !message.guild ||
+    message.channel.type === ChannelType.DM ||
+    message.author.bot
+  )
+    return;
 
   client.db.ensure(message.guild.id, {
     prefix: client.env.prefix,
