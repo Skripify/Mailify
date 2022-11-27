@@ -10,6 +10,7 @@ export const emotes = {
   success: "<:classic_check:1046366360604786688>",
   fail: "<:classic_x:1046366420457500742>",
   logo: "<:mailify:1046224216258789396>",
+  discord: "<:discord:1043438510616608779>",
 };
 
 export const guildId = "977485367294959627";
