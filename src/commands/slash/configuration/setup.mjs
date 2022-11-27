@@ -33,7 +33,7 @@ export default {
       message: "What do you need help with?",
     });
 
-    const categoryId = interaction.options.getChannel("channel");
+    const categoryId = interaction.options.getChannel("category")?.id;
     let category = await interaction.guild.channels.cache.get(categoryId);
     if (!categoryId)
       category = await interaction.guild.channels.create({
