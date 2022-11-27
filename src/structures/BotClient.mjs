@@ -57,8 +57,7 @@ export class BotClient extends Client {
 
       for (const file of commandFiles) {
         const command = await importFile(`../commands/message/${dir}/${file}`);
-        if (!command.name) continue;
-        if (!command.run) continue;
+        if (!command?.name || !command?.run) continue;
 
         this.commands.message.set(command.name, { directory: dir, ...command });
       }
@@ -75,8 +74,7 @@ export class BotClient extends Client {
 
       for (const file of commandFiles) {
         const command = await importFile(`../commands/slash/${dir}/${file}`);
-        if (!command.data) continue;
-        if (!command.run) continue;
+        if (!command?.data || !command?.run) continue;
 
         this.commands.slash.set(command.data.toJSON().name, command);
         commands.push(command.data.toJSON());

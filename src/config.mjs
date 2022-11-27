@@ -5,6 +5,8 @@ export const colors = {
 };
 
 export const emotes = {
+  previous: "<:previous:994438542077984768>",
+  next: "<:next:994438540429643806>",
   logo: "<:mailify:1046224216258789396>",
 };
 
