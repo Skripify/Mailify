@@ -14,3 +14,4 @@ export const emotes = {
 };
 
 export const guildId = "977485367294959627";
+export const postStats = false;
