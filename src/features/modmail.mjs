@@ -1,6 +1,7 @@
 import { AttachmentBuilder, ChannelType, DiscordAPIError } from "discord.js";
 import { emotes } from "../config.mjs";
 import { Embed, FailEmbed, SuccessEmbed } from "../structures/Embed.mjs";
+import { replaceTags } from "../utils/functions.mjs";
 
 /** @type {import("../utils/types.mjs").Feature} */
 export default (client) => {
@@ -91,7 +92,7 @@ export default (client) => {
       return;
 
     const dmauthor = message.author;
-    if (!client.db.has(dmauthor.id)) {
+    if (!client.db.has(dmauthor.id) || !client.db.has(dmauthor.id, "guild")) {
       /** @type {import('discord.js').Guild[]} */
       const mutualGuilds = [];
 
@@ -268,7 +269,7 @@ export default (client) => {
             embeds: [
               new SuccessEmbed().addFields({
                 name: "Successfully created your ticket!",
-                value: data.message,
+                value: replaceTags(data.message, dmauthor),
               }),
             ],
           })
@@ -282,9 +283,10 @@ export default (client) => {
                 iconURL: dmauthor.displayAvatarURL(),
               })
               .setTitle("Created a ticket!")
-              .addFields({
-                name: "Visibility",
-                value: !category ? "Admins only" : "Specified by the category",
+              .setFooter({
+                text: `Visibility: ${
+                  !category ? "Admins only" : "Specified by the category"
+                }`,
               }),
           ],
         });

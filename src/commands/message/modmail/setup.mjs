@@ -28,12 +28,6 @@ export default {
 
     client.db.set(message.guild.id, true, "enabled");
     client.db.set(message.guild.id, category.id, "category");
-    if (args[1])
-      client.db.set(
-        message.guild.id,
-        args.slice(1).join(" ").slice(2048),
-        "message"
-      );
 
     message.reply({
       embeds: [

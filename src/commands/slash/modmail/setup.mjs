@@ -19,12 +19,6 @@ export default {
         .addChannelTypes(ChannelType.GuildCategory)
         .setRequired(false)
     )
-    .addStringOption((option) =>
-      option
-        .setName("message")
-        .setDescription("The message to send when a user opens a ticket.")
-        .setRequired(false)
-    )
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
   run: async ({ client, interaction }) => {
     client.db.ensure(interaction.guild.id, {
@@ -48,9 +42,6 @@ export default {
 
     client.db.set(interaction.guild.id, true, "enabled");
     client.db.set(interaction.guild.id, category.id, "category");
-
-    const message = interaction.options.getString("message");
-    if (message) client.db.set(interaction.guild.id, message, "message");
 
     interaction.reply({
       embeds: [
